@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    <title>Custom-made men's formal and Casual wear- Ready-made Tee's and Hoodies-
+        Creative Gifts using potato as messenger, 3D printed gifting and more..</title>
+</head>
+<body >
+ <!--Logo Bar starts-->
+   <div class="logo-bar">
+   <a href="{% url 'homepage' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+
+
+     <ul style="overflow: hidden; position: absolute; right: 5px; top: 10px;background-color: rgba(245, 245, 245, 0)">
+       <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>Services</i></a>
+       </li>
+       <li style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a  href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>About Us</i></a>
+       </li>
+       <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a  href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>Contact</i></a>
+       </li>
+     </ul>
+    </nav>
+  </div> <!--Logo Bar ends-->
+  <br><br><br>
+ <main>
+     <a href="{% url 'shop:product_list' %}" style="margin-left: 5px">Hoodies & Tee's</a> <br>
+     <a href="{% url 'potato:product_list' %}" style="margin-left: 5px">Creative Potato Messenger Gift & 3D gifting</a> <br>
+     <a href="#" style="margin-left: 5px">Custom made materials (Tailor Stitched)</a>
+     <br><br><br>
+
+     <div class="container" style="border-right: rgb(145, 146, 148) 5px solid;padding: 50px; margin-left: 0px;height: auto; width: 50%">
+            hello
+     </div>
+
+
+
+
+ </main>
+
+
+ <br><br>
+
+</body>
+</html>

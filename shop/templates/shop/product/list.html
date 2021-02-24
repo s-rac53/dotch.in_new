@@ -1,0 +1,140 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}
+
+      Dotch.in- {% if category %} {{ category.name }} available- {% endif %} Ready-made Unisex Tee-shirts and Hoodies.
+      Bulk orders accepted for custom made designs. Plain coloured apparel. 
+
+
+{% endblock %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block header %}
+
+     <!-- <h1>Latest Hoodies and Tee's collection</h1> basic carousel to come -->
+
+
+{% endblock %}
+
+{% block main %}
+
+
+    <!-- Latest Arrivals-->
+    <h3 style="margin-left: 25px; font-size: 1.5rem;">LATEST ARRIVALS</h3><br>
+    <div class="flex-container" style="margin-left: 3vw">
+
+   {% for product in latest %}
+
+
+
+
+      <div class="container latest-arrival-container">
+              <div class="container" >
+                  <a href="{{ product.get_absolute_url }}">
+                <img class="img-fluid "
+                  src="{% if product.image %}{{ product.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ product.name }}" height="150" width="150">
+                  </a>
+              </div>
+                 <br>
+               <div style="margin-left: 15px">
+
+                <h5>{{ product.name }}</h5>
+                <p class="mb-2 text-muted text-uppercase small" style="text-transform: capitalize">{{ product.category }}</p>
+
+                  <hr>
+                <h6 class="mb-3"><span>&#8377; {{ product.price }}</span></h6>
+
+              </div>
+      </div>
+   {% endfor %}
+    </div> <br><br><br> <br>
+
+   <!--Category-->
+
+
+
+    {% if category %}
+
+
+
+        <h3 style="margin-left: 25px; font-size: 1.5rem;">SHOP BY CATEGORY</h3><br>
+         <div class="flex-container" style="margin-left: 3vw">
+
+          {% for c in categories %}
+
+               <div class="container" style="border: 0.5px solid rgb(227, 221, 204); width: 220px; height: 180px;">
+
+                  <a href="{{ c.get_absolute_url }}">
+                      <img class="img-fluid" style="margin: 10px; border: 1px ridge black" src="{% if c.image %}{{ c.image.url }}{% else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ c.name }}" height="150" width="140">
+                  </a>
+                <h5 style="margin: 10px">{{ c.name }}</h5>
+              </div>
+
+
+          {% endfor %}
+         </div>
+           <br><br><br>
+
+
+
+
+        <h3 style="margin-left: 25px; font-size: 1.5rem; text-transform: uppercase">{{ category.name }}</h3><br>
+        <div class="flex-container" style="margin-left: 3vw">
+
+            {% for product in products %}
+          <div class="container " style=" border: 0.5px solid  rgb(227, 221, 204); width: 240px; height: 220px;">
+           <a href="{{ product.get_absolute_url }}">
+
+            <img src="{% if product.image %}{{ product.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" width="150" height="100" style="margin: 10px; ">
+           </a>
+           <div style="margin-left: 15px">
+               <a style="font-size:large; color: black; text-decoration: none; text-transform: capitalize;" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+               <hr>
+               <h6 class="mb-3"><span>INR {{ product.price }}</span></h6>
+             <br>
+
+           </div>
+          </div>
+         {% endfor %}
+
+        </div>
+
+
+     {% else %}
+
+          <h3 style="margin-left: 25px; font-size: 1.5rem;">SHOP BY CATEGORY</h3><br>
+         <div class="flex-container" style="margin-left: 3vw">
+
+          {% for c in categories %}
+
+               <div class="container" style="border: 0.5px solid  rgb(227, 221, 204); width: 200px; height: 160px;">
+
+                  <a href="{{ c.get_absolute_url }}">
+                 <img class="img-fluid " style="margin: 10px; border: 1px ridge black"
+                  src="{% if c.image %}{{ c.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ c.name }}" height="150" width="150">
+                  </a> <br>
+                <h5 style="margin: 10px">{{ c.name }}</h5>
+              </div>
+                 <br>
+
+     {% endfor %}
+        </div>
+    {% endif %}
+
+
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+
+

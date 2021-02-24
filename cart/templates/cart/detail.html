@@ -1,0 +1,60 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+Your shopping cart
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block main %}
+<h1 style="font-size: 2.2vmax;">Your shopping cart</h1>
+
+<table class="table" style="font-size: 2.5vmin">
+<thead>
+<tr>
+<th scope="col">Image</th>
+ <th scope="col">Size</th>
+<th scope="col">Quantity</th>
+<th scope="col">Unit price</th>
+<th scope="col">Price</th>
+</tr>
+</thead>
+<tbody>
+
+{% for item in cart %}
+{% with product=item.product %}
+<tr>
+<td >
+   <a href="{{ product.get_absolute_url }}">
+   <img src="{% if product.image %}{{ product.image.url }}
+   {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
+   <p style="margin-bottom: 0">{{ product.name }}</p>
+</a>
+</td>
+
+    <td>{{ item.size }}</td>
+   <td> {{ item.quantity }}</td>
+   <td class="num">&#8377;{{ item.price }}</td>
+   <td class="num">&#8377;{{ item.total_price }} </td>
+
+</tr>
+<tr>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id%}">Remove</a> </td>
+</tr>
+{% endwith %}
+{% endfor %}
+
+<tr class="total">
+<td>Total</td>
+<td colspan="3"></td>
+<td class="num">&#8377;{{ cart.get_total_price }}</td>
+</tr>
+</tbody>
+</table>
+    <hr>
+<p class="text-right">
+<a href="{% url "shop:product_list" %}" class="button
+light">Continue shopping</a>
+<a href="#" class="button">Checkout</a>
+</p>
+{% endblock %}

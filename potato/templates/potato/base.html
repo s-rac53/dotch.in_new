@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    {% block head %}
+
+    {% endblock %}
+    <title>{% block title %}Custom-made men's formal and Casual wear- Ready-made Tee's and Hoodies- Creative Gifts and more..{% endblock %}</title>
+
+</head>
+<body>
+
+<div class="logo-bar">
+   <a href="{% url 'homepage' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+
+
+     <ul style="overflow: hidden; position: absolute; right: 5px; top: 10px;background-color: rgba(245, 245, 245, 0)">
+       <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>Services</i></a>
+       </li>
+       <li style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a  href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>About Us</i></a>
+       </li>
+       <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a  href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>Contact</i></a>
+       </li>
+        <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none">
+        <a  href="#" style="background-color: rgba(245, 245, 245, 0);padding: 0; margin: 5px 10px"><i>Cart</i></a>
+       </li>
+     </ul>
+    </nav>
+  </div> <!--Logo Bar ends-->
+
+<div id="menu-bar">
+<br> <br> <br>
+    {% block menu-bar %}
+
+    {% endblock %}
+</div>
+
+<header>{% block header %}
+
+{% endblock %}</header>
+
+<main>{% block main %}
+
+{% endblock %}</main>
+
+<footer>
+    {% block footer %}
+
+    {% endblock %}
+</footer>
+</body>
+</html>

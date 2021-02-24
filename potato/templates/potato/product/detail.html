@@ -1,0 +1,33 @@
+{% extends 'potato/base.html' %}
+{% load static %}
+
+{% block title %}
+ 
+      Dotch.in-  {{ product.name }} available - Ready-made Unisex Tee-shirts and Hoodies.
+      Bulk orders accepted for custom made designs. Plain coloured apparel.
+    
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static "no-available-image.jpg" %}{% endif %}">
+        <h1>{{ product.name }}</h1>
+         <h2><a href="{{ product.category.get_absolute_url }}">{{product.category }}</a></h2>
+         <p class="price">&#8377; {{ product.price }}</p>
+        {{ product.description|linebreaks }}
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+body {
+    background-color: mintcream;
+
+}
+
+.logo-bar {
+    width: 100%;
+    background-color: #595f6224;
+    height: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    opacity: 10%;
+}
+
+.logo-image {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 0px;
+}
+
+.menu-bar {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+
+}
+
+.shop-category {
+    width: 20%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: left;
+    height: 500px;
+    list-style: none;
+
+}
+
+.shop-category::after {
+    content: "";
+    display: table;
+    clear:both;
+}
+
+.product-list-container {
+    background-color: antiquewhite;
+    width: 79%;
+    float: right;
+
+}
+
+.hello {
+    background-color: brown;
+    width: 79%;
+    float: right;
+
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.latest-arrival-container {
+    width: 225px;
+    height: 258px;
+    border: 0.5px solid  rgb(227, 221, 204) ;
+    border-style: ridge;
+    padding: 10px;
+    margin-bottom: 3vw
+
+}
