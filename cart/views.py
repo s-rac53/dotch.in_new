@@ -7,25 +7,28 @@ from .forms import CartAddProductForm
 
 @require_POST
 def cart_add(request, product_id):
-    updated = False
+    duplicate = False
     cart = Cart(request)
-
-    print(cart.cart.values())
 
 
     product = get_object_or_404(Product, id=product_id)
+    print(product)
     if request.method == 'POST':
        quantity = request.POST.get('quantity')
        quantity = int(quantity)
-       updated = request.POST.get('updated')
        size_value = request.POST.get('size_value')
-       print(size_value)
+
 
     cart_products = cart.total_products()
-    print(cart_products)
 
 
-    cart.add(product=product,quantity=quantity, update_quantity=updated, size_value=size_value)
+    if product in cart_products:
+        duplicate = True
+
+
+
+
+    cart.add(product=product,quantity=quantity, size_value=size_value,duplicate=duplicate)
     return redirect('cart:cart_detail')
 
 
@@ -42,5 +45,8 @@ def cart_detail(request):
 
     cart = Cart(request)
     cart_products = cart.total_products()
+
+    for item in cart.cart.values():
+        print(item.__iter__())
 
     return render(request, 'cart/detail.html', {'cart': cart, 'cart_products': cart_products})

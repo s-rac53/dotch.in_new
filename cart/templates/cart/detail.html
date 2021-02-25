@@ -23,6 +23,11 @@ Your shopping cart
 
 {% for item in cart %}
 {% with product=item.product %}
+
+
+
+
+
 <tr>
 <td >
    <a href="{{ product.get_absolute_url }}">
@@ -41,6 +46,7 @@ Your shopping cart
 <tr>
  <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id%}">Remove</a> </td>
 </tr>
+
 {% endwith %}
 {% endfor %}
 

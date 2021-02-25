@@ -16,7 +16,7 @@ class Cart(object):
        self.cart = cart
 
 
-    def add(self, product, quantity=1, update_quantity=False, size_value='L'):
+    def add(self, product, quantity=1, size_value='L',duplicate=False):
            """
            Add a product to the cart or update its quantity.
            """
@@ -24,16 +24,77 @@ class Cart(object):
 
 
 
-           if product_id not in self.cart:
-               self.cart[product_id] = {'quantity': 0,
-                                        'size': size_value,
-                                        'price': str(product.price)}
 
-           if update_quantity:
-                self.cart[product_id]['quantity'] = quantity
-           else:
-                self.cart[product_id]['quantity'] += quantity
+           if product_id not in self.cart:
+               self.cart[product_id] = {
+                                                     'quantity': 0,
+
+                                                     'quantityS': 0,
+                                                     'quantityM': 0,
+                                                     'quantityL': 0,
+                                                     'quantityXL': 0,
+                                                     'quantityXXL': 0,
+
+
+                                                     'sizeS': None,
+                                                     'sizeM': None,
+                                                     'sizeL': None,
+                                                     'sizeXL': None,
+                                                     'sizeXXL': None,
+
+
+
+                                                     'priceS': 0,
+                                                     'priceM': 0,
+                                                     'priceL': 0,
+                                                     'priceXL': 0,
+                                                     'priceXXL': 0,
+
+
+                                                     'price': str(product.price)
+                                       }
+
+               if size_value == 'S':
+                   self.cart[product_id]['sizeS'] = size_value
+                   self.cart[product_id]['quantityS'] += quantity
+               elif size_value == 'M':
+                   self.cart[product_id]['sizeM'] = size_value
+                   self.cart[product_id]['quantityM'] += quantity
+               elif size_value == 'L':
+                   self.cart[product_id]['sizeL'] = size_value
+                   self.cart[product_id]['quantityL'] += quantity
+               elif size_value == 'XL':
+                   self.cart[product_id]['sizeXL'] = size_value
+                   self.cart[product_id]['quantityXL'] += quantity
+               elif size_value == 'XXL':
+                   self.cart[product_id]['sizeXXL'] = size_value
+                   self.cart[product_id]['quantityXXL'] += quantity
+
+
+
+
+           if duplicate:
+
+               if size_value == 'S':
+                   self.cart[product_id]['sizeS'] = size_value
+                   self.cart[product_id]['quantityS'] += quantity
+               elif size_value == 'M':
+                   self.cart[product_id]['sizeM'] = size_value
+                   self.cart[product_id]['quantityM'] += quantity
+               elif size_value == 'L':
+                   self.cart[product_id]['sizeL'] = size_value
+                   self.cart[product_id]['quantityL'] += quantity
+               elif size_value == 'XL':
+                   self.cart[product_id]['sizeXL'] = size_value
+                   self.cart[product_id]['quantityXL'] += quantity
+               elif size_value == 'XXL':
+                   self.cart[product_id]['sizeXXL'] = size_value
+                   self.cart[product_id]['quantityXXL'] += quantity
+
+
+
            self.save()
+
 
     def save(self):
 
@@ -58,6 +119,7 @@ class Cart(object):
            Iterate over the items in the cart and get the products
            from the database.
            """
+           print(self)
            product_ids = self.cart.keys()
            # get the product objects and add them to the cart
            products = Product.objects.filter(id__in=product_ids)
@@ -65,22 +127,49 @@ class Cart(object):
            cart = self.cart.copy()
 
            for product in products:
+               print(product)
                cart[str(product.id)]['product'] = product
            for item in cart.values():
-               item['price'] = Decimal(item['price'])
-               item['total_price'] = item['price'] * item['quantity']
-               yield item
+                     if item['sizeS']:
+                        item['price'] = Decimal(item['price'])
+                        item['priceS'] = item['price'] * item['quantityS']
+                     elif item['sizeM']:
+                         item['price'] = Decimal(item['price'])
+                         item['priceM'] = item['price'] * item['quantityM']
+                     elif item['sizeL']:
+                         item['price'] = Decimal(item['price'])
+                         item['priceL'] = item['price'] * item['quantityL']
+                     elif item['sizeXL']:
+                         item['price'] = Decimal(item['price'])
+                         item['priceXL'] = item['price'] * item['quantityXL']
+                     elif item['sizeXXL']:
+                         item['price'] = Decimal(item['price'])
+                         item['priceXXL'] = item['price'] * item['quantityXXL']
+                     yield item
 
 
     def __len__(self):
            """
            Count all items in the cart.
            """
-           return sum(item['quantity'] for item in self.cart.values())
+           for item in self.cart.values():
+               sum_list = (item['quantityS'],item['quantityM'],item['quantityL'],item['quantityXL'],item['quantityXXL'])
+               return sum(sum_list)
+
+
+
 
     def get_total_price(self):
-           return sum(Decimal(item['price']) * item['quantity'] for item in
-                      self.cart.values())
+
+        for item in self.cart.values():
+            total_sum = ( Decimal(item['price']) * item['quantityS'],Decimal(item['price']) * item['quantityM'],\
+                          Decimal(item['price']) * item['quantityL'],\
+                          Decimal(item['price']) * item['quantityXL'],Decimal(item['price']) * item['quantityXXL'])
+
+
+        return sum(total_sum)
+
+
 
     def clear(self):
 
