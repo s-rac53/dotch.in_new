@@ -39,8 +39,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('name',)
-
-    index_together = (('id', 'slug'),)
+        index_together = (('id', 'slug'),)
 
     def __str__(self):
         return self.name
@@ -65,6 +64,9 @@ class ProductSize(models.Model):
     size = models.CharField(max_length=10,choices=SIZE_CHOICES,default='L')
     stock = models.IntegerField(default=0)
     available = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.product.name
 
 
 

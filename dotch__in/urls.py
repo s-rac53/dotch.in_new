@@ -15,18 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import settings
+from .settings import base
 from django.conf.urls.static import static
 from shop.views import homepage
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('orders/', include('orders.urls', namespace='orders')),
     path('clothing/unisex/', include('shop.urls',namespace='shop')),
-    path('creative-gifts/potato/', include('potato.urls', namespace='potato')),
+    path('creative-gifts/', include('gifting.urls', namespace='gifting')),
     path('', homepage, name='homepage'),
     path('cart/', include('cart.urls', namespace='cart')),
+    path('stitching/', include('stitching.urls', namespace='stitching'))
+
 
 ]
-if settings.DEBUG:
-   urlpatterns += static(settings.MEDIA_URL,
-   document_root=settings.MEDIA_ROOT)
+if base.DEBUG:
+   urlpatterns += static(base.MEDIA_URL,
+                         document_root=base.MEDIA_ROOT)

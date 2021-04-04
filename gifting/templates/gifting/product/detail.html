@@ -1,0 +1,511 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block title %}
+
+      Dotch.in-  {{ product.name }} available - Creative and fun gifting using 3D-printing and Potato messenger.
+Bulk orders accepted for many varieties and designs of gifts.
+
+{% endblock %}
+
+{% block head %}
+<meta name="keywords" content="{{ product.name }},{{ product.slug }}, {{ product.variants.name }} creative gifts, gifts using potato, funny gifts, fun gifts, 3D printing for gifts, 3D gifts, personalised gifts, personalised gifts with your articles, low cost, budget friendly, pocket friendly ">
+    <meta name="description" content="{{ product.name }},{{ product.slug }}, {{ product.variants.name }}  Creative gifting with 3D gifts and fun Potato messenger and plant. Gifts an eco-friendly gift to your friend. Write messages on Potatoes and grow them into plants. Budget friendly. We accept personalised gifting of your choice. ">
+
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+
+ <style>
+
+ body {
+
+    font-family: 'Dancing Script', cursive;
+    font-family: 'IBM Plex Serif', serif;
+}
+
+
+
+select:focus {
+    outline: none;
+}
+
+
+
+ #myHeader {
+
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 30px;
+ }
+
+ #myCarousel {
+             width:70%;
+             height: 60vh;
+             margin-left: auto;
+             margin-right: auto;
+             min-height: 350px;
+             min-width: 350px;
+
+         }
+
+ .image-row {
+   cursor: pointer;
+     width: 15vw;
+     height: 15vw;
+     max-height: 100px;
+     max-width: 100px;
+     margin-right: 5vw;
+ }
+
+ .price {
+     color: cornflowerblue;
+     font-weight: bold;
+ }
+
+
+
+.product-description {
+    margin-left:0;
+    text-align: center;
+    font-style: italic;
+    color: cadetblue;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 5px;
+    width: 140px;
+}
+
+
+.variant-image {
+    height: 30vw;
+    width: 30vw;
+    margin-left: 25vw;
+    margin-right: 18vw;
+    max-height: 250px;
+    max-width: 250px;
+    min-width: 150px;
+    min-height: 150px;
+
+}
+
+ .variant-name {
+     margin-left: auto;
+     padding: 0;
+     text-align: center;
+     color: goldenrod;
+     font-size: 4vmin;
+     margin-top: 5px;
+     text-transform: capitalize;
+ }
+
+    .form-info {
+         max-width: 700px;
+         padding: 0px;
+         margin-left: 15px;
+        margin-right: 15px;
+     }
+
+     .form-info::after {
+         content: "";
+         display: table;
+         clear: both;
+     }
+
+ .modal-effects {
+
+         border: none;
+         outline: none;
+         font-size: 2.5vmin;
+
+     }
+.order-info {
+
+         padding: 10px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         border: none;
+         font-size: 2.5vmin;
+         margin-top: 15px;
+
+     }
+
+ .order-info:focus {
+         outline: none;
+     }
+
+
+  .submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 2.5vmin;
+
+}
+
+
+
+ </style>
+{% endblock %}
+
+
+{% block main %}
+
+    <header style="position: relative; border: 1px solid rgba(255,255,255,0.2); width: 100%; height: 51px;">
+
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'gifting:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+
+  </div> <!--Logo Bar ends-->
+    </header>
+
+
+
+    <div id="image-gallery" style="position: relative; margin-left: 20%; margin-top: 20px;">
+    <img id="main-ele"  src="{{ product.image.url }}" style="width:55vw; height:35vw; ">
+
+       <div id="myHeader">
+       <img class="image-row" style=" border:10px #e4ded1 solid;" id="image-gallery" onclick="one(this)" src="{{ product.image.url }}">
+    {% for image in images %}
+          <img class="image-row" onclick="one(this)" id="image-gallery" src="{{ image.images.url }}">
+    {% endfor %}
+      </div>
+    </div>
+
+
+<div id="product-description" style="margin-left: 20px; margin-top: 60px;">
+           <h2 style="text-transform: capitalize; font-size: 5vmin; color: goldenrod"><i>{{ product.name }}</i></h2>
+         <h5 style="text-transform: uppercase;"><a style="text-decoration: none;" href="{{ product.category.get_absolute_url }}">{{product.category }}</a></h5>
+    {% if not variants %}
+       <p class="price">&#8377; {{ product.price }}</p>
+    {% endif %}
+
+    <br>
+    <!-- Variants Carousel-->
+
+    {% if variants %}
+
+     <div id="myCarousel" class="carousel" data-interval="false" >
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" >
+        {% for variant in variants %}
+      <div class="carousel-item {% if variant.id == vid %}
+          active
+      {% endif %}" >
+        <img src="{{ variant.image.url }}" alt="Tailor-made button picture" class="variant-image"> <br>
+          <p class="variant-name">{{ variant.name }}</p>
+          <p style="margin-left: auto;padding: 0; text-align: center">&#8377;{{ variant.price }}</p>
+
+           <p style="text-align: center"><i>{{ variant.description }}</i></p>
+
+
+          <button style="margin-left: 29vw" class="submit-button" onclick="variantVal({{ variant.id }})"> Select Me </button>
+
+      </div>
+
+       {% endfor %}
+
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+      <i class="fas fa-arrow-left" style="color: #555555"></i>
+
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+      <i class="fas fa-arrow-right" style="color: #555555"></i>
+
+    </a>
+  </div>
+
+
+    {% endif %}
+
+
+
+          <hr style="background-color: #f1f1f1; width: 60%;  {% if variants %}
+           margin-top:10vw; {% else %}margin-top: 3vw;
+          {% endif %} ">
+    <div class="container product-description"  ><p>{{ product.description|linebreaks }} </p></div>
+              <hr style="background-color: #f1f1f1; width: 60%">
+
+</div>
+   <br><br><br>
+
+<h4 style="margin-left: 15px; font-size: 4vmin; color: goldenrod;">Please fill the form to place order:</h4>
+
+    <div>
+<form class="form-info" id="infoForm"  action="{% url 'orders:order_create_gifting' product.id product.slug %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+ <div class="form-group" style="margin-right: 0px;border-right: 0px;">
+<label for="fname" style="font-size: 2.5vmin;" >First name:</label>
+    <input style="font-size: 2.5vmin;" required id="fname" name="fname" class="form-control" type="text">
+ </div>
+
+
+<div class="form-group">
+<label for="lname" style="font-size: 2.5vmin;">Last name:</label>
+    <input style="font-size: 2.5vmin;" required id="lname" name="lname" class="form-control" type="text">
+</div>
+
+
+<div class="form-group">
+<label style="font-size: 2.5vmin;" for="email">Email:(Please use the email which is registered with us)</label>
+    <input style="font-size: 2.5vmin;" required id="email" name="email" class="form-control" type="email">
+</div>
+
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="phone">Phone:(Please use the email which is registered with us)</label> <br>
+    <input style="font-size: 2.5vmin; display: inline;" required id="phone" name="phone" placeholder="+91-" type="tel" pattern="[0-9]{10}" class="form-control" size="12">
+    </div>
+
+ <div class="form-group">
+<label style="font-size: 2.5vmin;" for="custom-order">Description</label> <br>
+    <textarea style="font-size: 2.5vmin" required maxlength="650" name="custom-order" placeholder="Description of your gifting idea..." class="form-control" rows="3" cols="20"></textarea>
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="image">Upload your image: (For 3D printing or any photo for reference)</label> <br>
+     <input style="font-size: 2.5vmin;" type="file" name="image" id="image">
+    </div>
+
+
+     <div class="form-group">
+    <label for="expected-by" style="font-size: 2.5vmin;">Required date: (Minimum one week for production required excluding delivery)</label> <br>
+  <input style="font-size: 2.5vmin;"  required type="date" id="expected-by" name="expected-by">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="address">Address:</label>
+    <textarea required name="address" class="form-control" rows="3" cols="20"></textarea>
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="postal">Postal Code:</label>
+    <input style="font-size: 2.5vmin;" required id="postal" name="postal" class="form-control" type="number" pattern="[0-9]{6}" size="6">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="city">City:</label>
+    <input style="font-size: 2.5vmin;" required id="city" class="form-control" name="city" type="text">
+    </div>
+      <div> <p style="font-size: 2.5vmin;">Preferred method of contact:</p>
+    <div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input checked required name="contact-radio" type="radio" value="Email">Email</label>
+</div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Whatsapp/SMS on provided number">Whatsapp/SMS on provided number</label>
+</div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Phone call on provided number">Phone call on provided number</label>
+</div> <br>
+
+      <div class="form-group">
+          <label style="font-size: 2.5vmin;" for="referral-code">Have a referral code from a friend?</label>
+    <input style="font-size: 2.5vmin;" id="referral-code" class="form-control" name="referral-code" type="text">
+      </div>
+    <button class="order-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalpolicy">
+  View T&C and return policies before placing order
+</button> <br>
+
+<input class="submit-button" type="submit" value="Place Order">
+
+      </div>
+</form>
+</div>
+
+
+
+
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModalpolicy">
+  <div class="modal-dialog">
+    <div class="modal-content modal-effects">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: darkgoldenrod;">T&C and policies for your order</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    <!-- Modal body -->
+      <div class="modal-body">
+        <ul>
+
+            <li>We aim to manufacture and deliver undamaged products.
+                On an event of damaged product's delivery, we offer an exchange service with free of delivery cost or delivery cost's compensation.
+            </li>
+            <li>
+            A video of the ordered products will be send via your desired option for communication to ensure satisfaction from customer's end.
+            </li>
+            <li>
+                Complete payment to be made beforehand delivery of the orders. Please note, COD (Cash On Delivery) is an unavailable service.
+            </li>
+            <li>
+                Orders can be canceled before 24 hours after placing orders. Kindly place an order only if you (customer) are sure of purchasing our goods and services.
+            </li>
+            <li>
+                Upon dissatisfaction on the final gift order, exchange of product for free as a service is available.
+            </li>
+            <li>
+                Products can only be exchanged and no return policy will be entertained once order is shipped.
+            </li>
+            <li>
+                No return policy or refund policies will be entertained for products as the exact pictures and its sizes have been displayed on the website.
+            </li>
+            <li>
+                During exchange of product(s), overhead delivery charges will be borne or remunerated by our company.
+            </li>
+            <li>
+                Kindly contact our support @contact@dotch.in for further queries and questions.
+            </li>
+
+
+
+</ul>
+           <hr>
+          <div class="alert alert-danger" role="alert">
+              Additional delivery cost levied is subjected to vary as per delivery distance.
+         </div>
+</div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+
+
+
+$(document).ready(function(){
+   var date = new Date();
+   if (date.getDate() + 8 > 30) {
+
+        differenceDate = (date.getDate() + 8) - 30;
+        if(date.getMonth() < 10) {
+       dMonth = "0" + (date.getMonth() + 2).toString();
+   }
+
+   else {
+       dMonth = (date.getMonth() + 2).toString();
+   }
+    if(differenceDate < 10) {
+       differenceDate = "0" + differenceDate.toString();
+   }
+
+   else {
+       differenceDate = differenceDate.toString();
+   }
+
+        var d = date.getFullYear().toString() + "-" + dMonth + "-" + differenceDate;
+
+        document.getElementById("expected-by").value = d;
+
+   }
+    else {
+   date.setDate(date.getDate() + 8);
+   if(date.getMonth() < 10) {
+       dMonth = "0" + (date.getMonth() + 1).toString();
+   }
+
+   else {
+       dMonth = (date.getMonth() + 1).toString();
+   }
+
+   var d = date.getFullYear().toString() + "-" + dMonth + "-" + date.getDate().toString();
+
+   document.getElementById("expected-by").min = d;
+   }
+
+
+
+});
+
+
+
+ function one(element_image) {
+
+     var element = document.getElementById("main-ele");
+     element.src = element_image.src;
+     var rows = document.getElementsByClassName("image-row")
+     for(i=0;i<rows.length; i++) {
+         rows[i].style.border = "10px mintcream solid";
+     }
+     element_image.style.border = "10px #e4ded1 solid";
+
+
+}
+
+
+function variantVal(id) {
+
+    {% for variant in variants %}
+        if (id == {{ variant.id }}) {
+            document.getElementById("infoForm").action = "{% url 'orders:order_create_gifting' variant.id variant.slug 'variant' %}";
+        }
+    {% endfor %}
+
+
+}
+
+
+
+</script>
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="alert alert-warning container" role="alert" style="font-size: 2.5vmin; margin-top: 25px;">
+<i class="fas fa-exclamation-triangle"></i>
+ <p> Payments are to be made once your order is placed with us.
+  Our online executive will contact you via your approved medium of contact for further dialogues on payment and delivery.</p>
+    <p>Kindly note, COD (Cash On Delivery) option is unavailable.
+    Transaction via Netbanking, GooglePay, PayTm, PhonePe, BhimUPI is accepted once order is placed with us.</p>
+
+   <p>Please provide authentic contact details for a hassle-free communication with us.
+       Your order will be canceled 5 business days post placing the order if invalid contact information are provided.</p>
+</div>
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-top: 100px;">
+
+
+
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
+{% endblock %}

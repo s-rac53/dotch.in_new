@@ -1,0 +1,402 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+Dotch.in-Checkout
+{% endblock %}
+ {% block head %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+     <style>
+     
+     @media screen and (max-width: 425px) {
+   .rotating-gifs {
+       visibility: hidden;
+   }
+}
+
+     .order-info {
+
+         padding: 10px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         border: none;
+         font-size: 2.5vmin;
+         margin-top: 15px;
+
+     }
+
+     .context-processor {
+         float: right;
+         background-color: #e8ecfd;
+         padding: 10px;
+         border-radius: 50px;
+         font-size: 2.5vmin;
+         color: darkgoldenrod;
+     }
+
+     .form-info {
+         max-width: 700px;
+         float: left;
+         padding: 0px;
+         margin-left: 15px;
+     }
+
+     .rotating-gifs {
+    position: relative;
+    float: right;
+    max-width: 600px;
+    top: 45vw;
+    right: 30vw;
+    border: 1px black solid;
+    display: block;
+}
+
+     .form-info::after {
+         content: "";
+         display: table;
+         clear: both;
+     }
+
+     .form-div::after {
+     content: "";
+     display: table;
+     clear: both;
+ }
+
+     .order-info::after {
+         content: "";
+         display: table;
+         clear: both;
+     }
+
+     .modal-effects {
+
+         border: none;
+         outline: none;
+         font-size: 2.5vmin;
+
+     }
+
+     body {
+       font-family: 'Dancing Script', cursive;
+       font-family: 'IBM Plex Serif', serif;
+
+     }
+
+     .order-info:focus {
+         outline: none;
+     }
+
+     header {
+         position: relative;
+         border: 1px solid rgba(255,255,255,0.2);
+         width: 100%;
+         height: 51px;
+         margin-bottom: 15px;
+     }
+
+     .submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 2.5vmin;
+
+}
+
+     </style>
+ {% endblock %}
+
+
+{% block header %}
+
+{% endblock %}
+
+
+
+{% block main %}
+
+    <header>
+
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'shop:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+  </div> <!--Logo Bar ends-->
+    </header>
+
+    <div class="container-fluid" >
+
+{% with total_items=cart|length %}
+{% if cart|length > 0 %}
+
+<p class=" context-processor">{{ total_items }} item{{ total_items|pluralize }},
+    &#8377;{{ cart.get_total_price }}</p>
+
+{% else %}
+ <h4 style="text-align: center; color: darkgoldenrod; margin-top: 25px; font-size: 5vmin"> Oh snap! Are you lost? Please go back to shop your favourite apparel from  <span
+ ><a href="{% url 'shop:product_list' %}" style="text-decoration: none; color: darkgoldenrod; font-style: italic" ><b>our store.</b></a><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ </span></h4>
+{% endif %}
+{% endwith %}
+
+</div>
+
+
+    {% with total_items=cart|length %}
+{% if cart|length > 0 %}
+<h4 style="margin: 50px 0px 5% 15px; font-size: 4vmin; color: goldenrod">Please the fill form to place order</h4>
+ <div class="rotating-gifs">
+       <img style="position: absolute; right: -10vw; top:0; height: 25vw; width: 25vw;" alt="rotating-gifs" src="{% static '-vq.GIF' %}">
+       <img style="position: absolute; left:-5vw; bottom:0; height: 25vw; width: 25vw;" alt="rotating-gifs" src="{% static '+vq.GIF' %}">
+    </div>
+
+<div class="form-div" style="position: relative; max-height: 2100px; height: 220vh; width: 50%; margin-left: 15px;">
+<form class="form-info" action="{% url 'orders:order_create_shop' %}"  method="post">
+{% csrf_token %}
+ <div class="form-group" style="margin-right: 0px;border-right: 0px;">
+<label for="fname" style="font-size: 2.5vmin;" >First name:</label>
+    <input style="font-size: 2.5vmin;" required id="fname" name="fname" class="form-control" type="text">
+ </div>
+
+
+<div class="form-group">
+<label for="lname" style="font-size: 2.5vmin;">Last name:</label>
+    <input style="font-size: 2.5vmin;" required id="lname" name="lname" class="form-control" type="text">
+</div>
+
+
+<div class="form-group">
+<label style="font-size: 2.5vmin;" for="email">Email:(Please use the email which is registered with us)</label>
+    <input style="font-size: 2.5vmin;" required id="email" name="email" class="form-control" type="email">
+</div>
+
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="phone">Phone:(Please use the email which is registered with us)</label> <br>
+    <input style="font-size: 2.5vmin; display: inline;" required id="phone" name="phone" placeholder="+91-" type="tel" pattern="[0-9]{10}" class="form-control" size="12">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="address">Address:</label>
+    <textarea required name="address" class="form-control" rows="3" cols="20"></textarea>
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="postal">Postal Code:</label>
+    <input style="font-size: 2.5vmin;" required id="postal" name="postal" class="form-control" type="number" pattern="[0-9]{6}" size="6">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="city">City:</label>
+    <input style="font-size: 2.5vmin;" required id="city" class="form-control" name="city" type="text">
+    </div>
+      <div> <p style="font-size: 2.5vmin;">Preferred method of contact:</p>
+    <div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input checked required name="contact-radio" type="radio" value="Email">Email</label>
+    </div> </div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Whatsapp/SMS on provided number">Whatsapp/SMS on provided number</label>
+</div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Phone call on provided number">Phone call on provided number</label>
+</div> <br>
+
+      <div class="form-group">
+          <label style="font-size: 2.5vmin;" for="referral-code">Have a referral code from a friend?</label>
+    <input style="font-size: 2.5vmin;" id="referral-code" class="form-control" name="referral-code" type="text">
+      </div>
+    <button class="order-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalpolicy">
+  View T&C and return policies before placing order
+</button> <br>
+    <button class="order-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  View Order Summary
+</button>
+<br>
+<input class="submit-button" type="submit" value="Place Order">
+
+
+</form>
+
+</div>
+
+
+
+
+
+
+    <!-- Button to Open the Modal -->
+
+
+<!-- The Modal -->
+    <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content modal-effects">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: darkgoldenrod;">Your order</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    <!-- Modal body -->
+      <div class="modal-body">
+        <ul>
+{% for item in cart %}
+    {% with product=item.product %}
+
+{% if item.sizeS %}
+
+<li>
+    {{ item.quantityS }} * <span style="text-transform: capitalize"> {{ item.product.name }} </span> - {{ item.sizeS }}-
+<span>&#8377;{{ item.priceS }}</span>
+</li>
+{% endif %}
+
+{% if item.sizeM %}
+
+<li>
+{{ item.quantityM }}* <span style="text-transform: capitalize"> {{ item.product.name }} </span> - {{ item.sizeM }}-
+<span>&#8377;{{ item.priceM }}</span>
+</li>
+{% endif %}
+
+{% if item.sizeL %}
+
+<li>
+{{ item.quantityL }} * <span style="text-transform: capitalize"> {{ item.product.name }} </span> - {{ item.sizeL }}-
+<span>&#8377;{{ item.priceL }}</span>
+</li>
+        {% endif %}
+
+{% if item.sizeXL %}
+
+<li>
+{{ item.quantityXL }} * <span style="text-transform: capitalize"> {{ item.product.name }} </span> - {{ item.sizeXL }}-
+<span>&#8377;{{ item.priceXL }}</span>
+</li>
+        {% endif %}
+
+{% if item.sizeXXL %}
+
+<li>
+{{ item.quantityXXL }} * <span style="text-transform: capitalize"> {{ item.product.name }} </span> - {{ item.sizeXXL }}-
+<span>&#8377;{{ item.priceXXL }}</span>
+</li>
+{% endif %}
+
+
+    {% endwith %}
+{% endfor %}
+</ul>
+          <p>Total: &#8377;{{ cart.get_total_price }} <b>(Inclusive of GST)</b></p>
+          <div class="alert alert-danger" role="alert">
+              Additional delivery cost levied is subjected to vary as per delivery distance.
+         </div>
+</div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModalpolicy">
+  <div class="modal-dialog">
+    <div class="modal-content modal-effects">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: darkgoldenrod;">T&C and policies for your order</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    <!-- Modal body -->
+      <div class="modal-body">
+        <ul>
+
+            <li>We aim to manufacture and deliver undamaged products.
+                On an event of damaged product's delivery, we offer an exchange service with free of delivery cost or delivery cost's compensation.
+            </li>
+            <li>
+            A video of the ordered products will be send via your desired option for communication to ensure satisfaction from customer's end.
+            </li>
+            <li>
+                Complete payment to be made beforehand delivery of the orders. Please note, COD (Cash On Delivery) is an unavailable service.
+            </li>
+            <li>
+                Orders can be canceled before 24 hours after placing orders. Kindly place an order only if you (customer) are sure of purchasing our goods and services.
+            </li>
+            <li>
+                Products can only be exchanged and no return policy will be entertained once order is shipped.
+            </li>
+            <li>
+                No return policy or refund policies will be entertained for products as the exact pictures and its sizes have been displayed on the website.
+            </li>
+            <li>
+                During exchange of product(s), overhead delivery charges will be borne or remunerated by our company.
+            </li>
+            <li>
+                Kindly contact our support @contact@dotch.in for further queries and questions.
+            </li>
+
+
+
+</ul>
+           <hr>
+          <div class="alert alert-danger" role="alert">
+              Additional delivery cost levied is subjected to vary as per delivery distance.
+         </div>
+</div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+{% endif %}
+{% endwith %}
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-left: 0px;">
+
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
+
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dotch - Review Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		.checked {
+			color: orange;
+		}
+
+
+	</style>
+</head>
+<body style="margin: 15px;">
+<div class="jumbotron text-center" style="background-color: cadetblue"> <h1 style="text-align: center; color: goldenrod"> Dotch.in</h1><p><i>Order review</i></p></div><br>
+
+  <h4>Help us serve you better by dropping a review. We value your feedback and would love to hear from you!</h4>
+
+
+  <form id="review-form" class="form-info" action="."  method="post">
+
+      {% csrf_token %}
+
+      <div class="form-group" style="margin-right: 0px;border-right: 0px;">
+
+<label style="font-size: 2.5vmin;" for="name">Name:</label>
+          <input required type="text" id="name" name="name" class="form-control" style="font-size: 2.5vmin; width: 250px;">
+ </div>
+
+ <div class="form-group" style="margin-right: 0px;border-right: 0px;">
+
+<label for="review" style="font-size: 2.5vmin;" >Review:</label>
+    <textarea style="font-size: 2.5vmin; width: 250px;" cols="50" rows="5" id="review" name="review" class="form-control" type="text"> </textarea>
+ </div>
+    <span class="fa fa-star star"id="one" onmouseover="show(this, 1, 'one')" onclick="select(1)"></span>
+<span class="fa fa-star star" id="two" onmouseover="show(this, 2, 'two')"  onclick="select(2)"></span>
+<span class="fa fa-star star" id="three"onmouseover="show(this, 3, 'three')"  onclick="select(3)"></span>
+<span class="fa fa-star star" id="four" onmouseover="show(this, 4, 'four')" onclick="select(4)"></span>
+<span class="fa fa-star star" id="five" onmouseover="show(this, 5, 'five')"  onclick="select(5)"></span>
+<br><br>
+<input type="submit" id="submit" value="Submit">
+ </form>
+
+<br><br><br>
+
+Please contact us for change in details provided or any other queries.<br><br>
+
+<address class="jumbotron text-center" style="background-color: cadetblue">
+Write us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a><br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a><br>
+Post us at: <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067<br>
+
+</address>
+
+
+    <script>
+  function show(obj, id, objName) {
+
+
+
+    for(i=id; i>=1; i--) {
+      if(i==5) {
+        document.getElementById("five").style.color = 'orange';
+        $('span').mouseout(function () { document.getElementById("five").style.color = 'black'});
+      }
+      if(i==4) {
+        document.getElementById("four").style.color = 'orange';
+        $('span').mouseout(function () { document.getElementById("four").style.color = 'black'});
+      }
+      if(i==3) {
+        document.getElementById("three").style.color = 'orange';
+        $('span').mouseout(function () { document.getElementById("three").style.color = 'black'});
+      }
+      if(i==2) {
+        document.getElementById("two").style.color = 'orange';
+        $('span').mouseout(function () { document.getElementById("two").style.color = 'black'});
+      }
+      if(i==1) {
+        document.getElementById("one").style.color = 'orange';
+        $('span').mouseout(function () { document.getElementById("one").style.color = 'black'});
+      }
+    }
+
+    }
+
+
+
+function select(id) {
+
+    {% for star in stars %}
+      if(id == {{ star }} ) {
+          document.getElementById("review-form").action = "{% url 'orders:review_form' star %}";
+    }
+    {% endfor %}
+
+
+
+
+
+  for(i=id; i>=1; i--) {
+      if(i==5) {
+        document.getElementById("five").style.color = 'orange';
+        $('#five').off().mouseout();
+
+      }
+      if(i==4) {
+        document.getElementById("four").style.color = 'orange';
+        $('#four').off("mouseout");
+      }
+      if(i==3) {
+        document.getElementById("three").style.color = 'orange';
+        $('#three').off("mouseout");
+      }
+      if(i==2) {
+        document.getElementById("two").style.color = 'orange';
+        $('#two').off("mouseout");
+      }
+      if(i==1) {
+        document.getElementById("one").style.color = 'orange';
+        $('#one').off("mouseout");
+      }
+    }
+
+}
+
+
+</script>
+</body>
+</html>

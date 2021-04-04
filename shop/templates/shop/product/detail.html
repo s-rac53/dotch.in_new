@@ -9,118 +9,406 @@
 {% endblock %}
 
 {% block head %}
+     <meta name="keywords" content=" readymade tees, readymade hoodies, plain tees, bulk order stitching, bulk order tees, bulk order hoodies, custom design clothes, low cost, budget friendly, pocket friendly, {{ product.name }}, {{ product.slug }} ">
+    <meta name="description" content=" {{ product.name }}, {{ product.slug }}. Stitching for clothes materials(All over India).Readymade unisex hoodies and tees. Plain tees and hoodies. custom designed tees and hoodies for bulk orders.  ">
+
+
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
  <style>
+
+ body {
+
+    font-family: 'Dancing Script', cursive;
+    font-family: 'IBM Plex Serif', serif;
+}
+
+
+@media screen and (max-width: 500px) {
+
+    .latest-arrival-container {
+        margin: 0px;
+        width: 40%;
+        height: 45%;
+    }
+}
+
  input[type=radio] {
-     display:none ;
+     opacity: 0;
+     position: absolute;
+     outline: none;
  }
 
- label:focus {
-     border: 2px black  solid;
+input[type=radio]:focus + label {
+     border: 1px solid black;
+     background-color: black;
+     color: black;
+     border-radius: 30px;
+}
+
+input[type=submit]:focus {
+    outline: none;
+}
+
+select:focus {
+    outline: none;
+}
+
+
+#size-quantity {
+    display: block;
+
+}
+
+ #myHeader {
+
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 30px;
  }
 
+ .image-row {
+   cursor: pointer;
+     width: 15vw;
+     height: 15vw;
+     max-height: 100px;
+     max-width: 100px;
+     margin-right: 5vw;
+ }
 
+ .price {
+     color: cornflowerblue;
+     font-weight: bold;
+ }
+
+ .latest-arrival-container {
+
+    border: 0.5px solid  rgb(227, 221, 204) ;
+    border-style: ridge;
+    padding: 10px;
+    margin-bottom: 3vw;
+    margin-left: 5vw;
+    max-height: 260px;
+    max-width: 200px;
+
+}
+
+.product-description {
+    margin-left:0;
+    text-align: center;
+    font-style: italic;
+    color: cadetblue;
+    text-transform: capitalize;
+}
+
+.submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 5px;
+    width: 140px;margin-top: 10px;
+
+}
+
+
+
+.quantity {
+    width:65px;
+    height: 35px;
+    display: inline;
+    color: black;
+    background-color: #eeeeee;
+    margin-bottom: 20px;
+}
+
+ .order-info {
+
+         padding: 10px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         border: none;
+         font-size: 13px;
+         margin-top: 5px;
+         margin-bottom: 15px;
+
+     }
+
+.order-info:focus {
+         outline: none;
+     }
 
 
  </style>
 {% endblock %}
 
-{% block header %}
-
-{% endblock %}
 
 {% block main %}
 
- <!--   <div class="container">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static "no-available-image.jpg" %}{% endif %}">
-       {% for image in images %}
-         <img src="{% if image.images %}{{ image.images.url }}{% else %} {% static "no-available-image.jpg" %}{% endif %}">
-       {% endfor %} -->
-       
-    <!--Image Carousel -->
+    <header style="position: relative; border: 1px solid rgba(255,255,255,0.2); width: 100%; height: 51px;">
 
-    <div class="container">
-  <h2>Carousel Example</h2>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel"  >
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        {% for i in array_itr %}
-            <li data-target="#myCarousel" data-slide-to="{{ i }}"></li>
-        {% endfor %}
-    </ol>
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" >
-      <div class="carousel-item active" >
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" >
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'shop:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+     <ul style="overflow: hidden; height: 300px; position: absolute; right: 5px; top: 10px;background-color: rgba(245, 245, 245, 0)">
+       <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none; position:relative;">
+          <form style="margin-right: 8px; height: 30px;" >
+                   {% csrf_token %}
+                     <input id="searchInput" type="text" name="searchInput" placeholder="Products..."><i style="position: absolute; top:6px; right:13px;" class="fa fa-search"></i>
+          </form>
+       </li>
+         <li  style="background-color: rgba(245, 245, 245, 0); float: left; list-style: none; width: 40px;">
+        <a  href="{% url 'cart:cart_detail' %}" style="background-color: rgba(245, 245, 245, 0);padding: 0px; margin: 5px 0px; ">
+            <i style="width:50px;" class="fas fa-shopping-cart"></i></a>
+       </li>
+     </ul>
+        <div style=" text-align:center; width: 30px; height: 20px; border-radius: 10px; background-color: tomato; font-size: small; position: absolute; right:7px; top:0px; ">
+          <a style="text-decoration: none"  href="{% url 'cart:cart_detail' %}"> {{ cart_num_items }} </a>
+                 </div>
+        </div>
+    </nav>
+  </div> <!--Logo Bar ends-->
+    </header>
+
+    <div id="image-gallery" style="position: relative; margin-left: 20%; margin-top: 20px;">
+    <img id="main-ele"  src="{{ product.image.url }}" style="width:55vw; height:35vw; ">
+
+
+
+       <div id="myHeader">
+       <img class="image-row" style=" border:10px #e4ded1 solid;" id="image-gallery" onclick="one(this)" src="{{ product.image.url }}">
+    {% for image in images %}
+          <img class="image-row" onclick="one(this)" id="image-gallery" src="{{ image.images.url }}">
+    {% endfor %}
       </div>
-       {% for image in images %}
-           <div class="carousel-item" >
-        <img src="{{ image.images.url }}" alt="{{ image.product }}">
-      </div>
-       {% endfor %}
     </div>
-    <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
 
 
 
-
-
-
-        <h1>{{ product.name }}</h1>
-         <h2><a href="{{ product.category.get_absolute_url }}">{{product.category }}</a></h2>
+<div id="product-description" style="margin-left: 20px; margin-top: 60px;">
+           <h2 style="text-transform: capitalize"><i>{{ product.name }}</i></h2>
+         <h5 style="text-transform: uppercase;"><a style="text-decoration: none;" href="{{ product.category.get_absolute_url }}">{{product.category }}</a></h5>
          <p class="price">&#8377; {{ product.price }}</p>
-           <!--  <ul style="overflow: hidden; list-style: none; margin-left: 0px; padding: 0;">
-      {% for size in sizes %}
-         <li style="float: left; color: #888888; font-size: medium; padding: 0; margin-right: 10px">{{ size.size }}</li>
-      {% endfor %}
-      </ul> -->
-           <form action="{% url "cart:cart_add" product.id %}" method="post">
+
+           <form id="productForm" action="{% url 'cart:cart_add' product.id %}"  method="post">
 
 
               {% csrf_token %}
 
-
-            {% for size in sizes %}
-                    <input style="border: none" type="radio" id="{{ size.size }}" name="size_value" value="{{ size.size }}" >
-                <label tabindex="1" for="{{ size.size }}" style=" cursor: pointer; color: #888888; width: 37px; height: 27px; text-align: center; padding:0;">{{ size.size }}</label>
-
-            {% endfor %}
-
-
-
-
-           <label style="margin-left: 15px" for="cars">Quantity:</label>
-              <span><select id="quantity" name="quantity">
+                <div id="size-quantity">
+            <label for="cars">Quantity:</label>
+              <span><select required id="quantity" name="quantity" class="form-control quantity" >
                   {% for i in quantity_range %}
-                    <option value="{{ i }}">{{ i }}</option>
+                    <option value="{{ i }}">{{ i }} </option>
                   {% endfor %}
-              </select></span> <br> <br>
+              </select></span> <br>
+            </div>
 
 
 
+             Size:
+            {% for size in sizes %}
+                    <input required style="border: none;" type="radio" id="{{ size.size }}" name="size_value" value="{{ size.size }}" >
+                <label id="mark" for="{{ size.size }}" style=" cursor: pointer; color: #888888; width: 37px; height: 27px; text-align: center; padding:0;">{{ size.size }}</label>
+
+            {% endfor %} <br>
 
 
-          <input type="submit" value="Add to cart">
+                     <p id="alertMsg" style="color: tomato"> </p>
+
+               <button class="order-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSize">
+                     View Size Chart
+                      </button> <br>
+
+
+
+             <input type="submit"  class="submit-button"  id="submit"  value="Add to cart">
+
+
+           <p style="margin-top: 25px;">For bulk or custom orders (above 25 numbers of merchandise), please fill up <a style="text-decoration: none; font-weight: bold; color: black;" href="{% url 'orders:bulk_orders' product.id product.slug %}"> this form.</a></p>
+
+
            </form>
          <br> <hr style="background-color: #f1f1f1; width: 60%">
-    <div class="container" style="margin-left:0; text-align: center" ><p>{{ product.description|linebreaks }} </p></div>
+    <div class="container product-description"  ><p>{{ product.description|linebreaks }} </p></div>
               <hr style="background-color: #f1f1f1; width: 60%">
 
+</div>
+
+        <!-- The Modal -->
+    <div class="modal" id="myModalSize">
+  <div class="modal-dialog">
+    <div class="modal-content modal-effects">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: darkgoldenrod;">Size Chart</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    <!-- Modal body -->
+      <div class="modal-body">
+          <img src="{% static 'size-chart.jpeg' %}" height = auto; width="100%" alt="Size-Chart">
+
+      </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+   <br><br>
+
+    {% if not products_same_category.count == 1 %}
+
+
+ <h3 style="margin-left: 25px; font-size: 1.5rem; text-transform: uppercase">You may also like</h3><br>
+         <div class="flex-container" style="margin-left: 3vw; padding: 0px">
+     <br>
+   {% for cat_product in products_same_category %}
+
+       {% if cat_product == product %}
+
+
+        {% else %}
+
+
+      <div class="container latest-arrival-container">
+              <div class="container" >
+                  <a href="{{ cat_product.get_absolute_url }}">
+                <img class="img-fluid "
+                  src="{% if cat_product.image %}{{ cat_product.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ cat_product.name }}" style="height: 15vh; width: 15vw">
+                  </a>
+              </div>
+                 <br>
+               <div style="margin-left: 15px">
+
+                <h5 style="font-size: 2.5vmin; text-transform: capitalize">{{ cat_product.name }}</h5>
+                <p class="mb-2 text-muted text-uppercase small" style="text-transform: capitalize; font-size: 2.3vmin;">{{ cat_product.category }}</p>
+
+                  <hr>
+                <h6 class="mb-3" style="font-size: 2.5vmin"><span>&#8377; {{ cat_product.price }}</span></h6>
+
+              </div>
+      </div>
+       {% endif %}
+   {% endfor %}
+    </div>
+{% endif %}
+<br>
+<script type="text/javascript">
+
+$(function() {
+
+
+            $( "#searchInput" ).autocomplete({
+                minLength: 2,
+                source: '{% url 'shop:product_list' %}',
+                focus: function( event, ui ) {
+                  $( "#searchInput" ).val( ui.item.value );
+                     return false;
+               },
+                select:  function (event, ui) {
+
+                searchVal = ui.item.value;
+                    {% for product in products %}
+                       if(searchVal == '{{ product.name }}') {
+                           window.location.href = "{% url 'shop:product_detail' product.id product.slug %}";
+                       }
+                    {% endfor %}
+                return false;
+            }
+            });
+         });
+
+
+
+$('#submit').click(function (e)  {
+
+        var choice = typeof $("input[name='size_value']:checked").val() == 'undefined';
+        if(choice) {
+
+            document.getElementById("alertMsg").innerHTML = "Choose a size!";
+        }
+        var quantitySelected, sizeSelected;
+        quantitySelected = $('#quantity :selected').text();
+        sizeSelected = $('input:radio[name="size_value"]:checked').val();
+
+
+        {% for size in sizes %}
+                     // Remove <ul>'s first child node (index 0)
+             var dbstock = {{ size.stock }};
+             var dbsize = {{ size.size }};
+            if(  (quantitySelected > dbstock) && (sizeSelected == "{{ size.size }}") ) {
+
+
+
+
+                   var node = "Sorry! Stock available for size " + "'{{ size.size }}'" +" is " + dbstock + " right now." ;
+
+
+                document.getElementById("alertMsg").innerHTML = node;
+
+
+                  e.preventDefault();
+
+
+
+
+              }
+
+       {% endfor %}
+
+
+
+});
+
+
+
+ function one(element_image) {
+
+     var element = document.getElementById("main-ele");
+     element.src = element_image.src;
+     var rows = document.getElementsByClassName("image-row")
+     for(i=0;i<rows.length; i++) {
+         rows[i].style.border = "10px mintcream solid";
+     }
+     element_image.style.border = "10px #e4ded1 solid";
+
+
+
+
+}
+
+
+</script>
 
 
 
 {% endblock %}
 
 {% block footer %}
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-top: 15px;">
 
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
 {% endblock %}
