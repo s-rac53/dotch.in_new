@@ -4,16 +4,77 @@
 Your shopping cart
 {% endblock %}
 {% block head %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
 
+
+<div class="context-processor"></div>
+ <style>
+  .submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 10px;
+    margin-top: 25px;
+    font-size: 2.5vmin;
+    color: black;
+    border-right: 10px;
+    margin-right: 10px;
+
+
+}
+
+ body {
+       font-family: 'Dancing Script', cursive;
+       font-family: 'IBM Plex Serif', serif;
+
+     }
+
+ #myInput:focus {
+     outline: none;
+     border: none;
+ }
+ </style>
 {% endblock %}
 {% block main %}
+     <header style="position: relative; border: 1px solid rgba(255,255,255,0.2); width: 100%; height: 51px;">
+
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'shop:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+
+    </nav>
+  </div> <!--Logo Bar ends-->
+    </header>
+
+<br><br>
 <h1 style="font-size: 2.2vmax;">Your shopping cart</h1>
+<br>
+
+<div class="container-fluid">
+
+{% with total_items=cart|length %}
+{% if cart|length > 0 %}
+
+<p style="float: right; background-color: #e8ecfd; padding: 10px; border-radius: 50px;font-size: 2.5vmin; color: darkgoldenrod">{{ total_items }} item{{ total_items|pluralize }},
+    &#8377;{{ cart.get_total_price }}</p>
+
+{% else %}
+ <h4 style="text-align: center; color: darkgoldenrod">   Oops! Looks like your cart is empty. Choose your favourite apparels from <span
+ ><a href="{% url 'shop:product_list' %}" style="text-decoration: none; color: darkgoldenrod; font-style: italic" ><b>our store.</b></a>
+ </span></h4>
+{% endif %}
+{% endwith %}
+
+</div>
+
 
 <table class="table" style="font-size: 2.5vmin">
 <thead>
 <tr>
 <th scope="col">Image</th>
- <th scope="col">Size</th>
+<th scope="col">Size</th>
 <th scope="col">Quantity</th>
 <th scope="col">Unit price</th>
 <th scope="col">Price</th>
@@ -22,25 +83,121 @@ Your shopping cart
 <tbody>
 
 {% for item in cart %}
+
 {% with product=item.product %}
+
+
+{% if item.sizeS %}
 <tr>
 <td >
-   <a href="{{ product.get_absolute_url }}">
+   <a style="text-decoration: none" href="{{ product.get_absolute_url }}">
    <img src="{% if product.image %}{{ product.image.url }}
    {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
-   <p style="margin-bottom: 0">{{ product.name }}</p>
+   <p style="margin-bottom: 0; text-transform: capitalize; font-style: italic; color: goldenrod">{{ product.name }}</p>
 </a>
 </td>
-
-    <td>{{ item.size }}</td>
-   <td> {{ item.quantity }}</td>
-   <td class="num">&#8377;{{ item.price }}</td>
-   <td class="num">&#8377;{{ item.total_price }} </td>
+<td>{{ item.sizeS }}</td>
+<td> {{ item.quantityS }}</td>
+<td class="num">&#8377;{{ item.price }}</td>
+<td class="num">&#8377;{{ item.priceS }} </td>
 
 </tr>
 <tr>
- <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id%}">Remove</a> </td>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id 'sizeS' %}"><i style="color: tomato; margin-left: 10px;" class="fa fa-window-close" aria-hidden="true"></i></a> </td>
 </tr>
+
+{% endif %}
+
+
+{% if item.sizeM %}
+    <tr>
+<td >
+   <a style="text-decoration: none" href="{{ product.get_absolute_url }}">
+   <img src="{% if product.image %}{{ product.image.url }}
+   {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
+   <p style="margin-bottom: 0; text-transform: capitalize; font-style: italic; color: goldenrod">{{ product.name }}</p>
+</a>
+</td>
+<td>{{ item.sizeM }}</td>
+<td> {{ item.quantityM }}</td>
+<td class="num">&#8377;{{ item.price }}</td>
+<td class="num">&#8377;{{ item.priceM }} </td>
+
+</tr>
+<tr>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id 'sizeM'%}"><i style="color: tomato; margin-left: 10px;" class="fa fa-window-close" aria-hidden="true"></i></a> </td>
+</tr>
+
+{% endif %}
+
+{% if item.sizeL %}
+    <tr>
+<td >
+   <a style="text-decoration: none" href="{{ product.get_absolute_url }}">
+   <img src="{% if product.image %}{{ product.image.url }}
+   {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
+   <p style="margin-bottom: 0; text-transform: capitalize; font-style: italic; color: goldenrod">{{ product.name }}</p>
+</a>
+</td>
+<td>{{ item.sizeL }}</td>
+<td> {{ item.quantityL }}</td>
+<td class="num">&#8377;{{ item.price }}</td>
+<td class="num">&#8377;{{ item.priceL }} </td>
+
+</tr>
+<tr>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id 'sizeL'%}"><i style="color: tomato; margin-left: 10px;" class="fa fa-window-close" aria-hidden="true"></i></a> </td>
+</tr>
+
+{% endif %}
+
+
+
+ {% if item.sizeXL %}
+    <tr>
+<td >
+   <a style="text-decoration: none" href="{{ product.get_absolute_url }}">
+   <img src="{% if product.image %}{{ product.image.url }}
+   {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
+   <p style="margin-bottom: 0; text-transform: capitalize; font-style: italic; color: goldenrod">{{ product.name }}</p>
+</a>
+</td>
+<td>{{ item.sizeXL }}</td>
+<td> {{ item.quantityXL }}</td>
+<td class="num">&#8377;{{ item.price }}</td>
+<td class="num">&#8377;{{ item.priceXL }} </td>
+
+</tr>
+<tr>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id 'sizeXL'%}"><i style="color: tomato; margin-left: 10px;" class="fa fa-window-close" aria-hidden="true"></i></a> </td>
+</tr>
+
+{% endif %}
+
+
+ {% if item.sizeXXL %}
+    <tr>
+<td >
+   <a style="text-decoration: none" href="{{ product.get_absolute_url }}">
+   <img src="{% if product.image %}{{ product.image.url }}
+   {% else %}{% static "no-image-available.jpg" %}{% endif %}" width="100" height="100">
+   <p style="margin-bottom: 0; text-transform: capitalize; font-style: italic; color: goldenrod">{{ product.name }}</p>
+</a>
+</td>
+<td>{{ item.sizeXXL }}</td>
+<td> {{ item.quantityXXL }}</td>
+<td class="num">&#8377;{{ item.price }}</td>
+<td class="num">&#8377;{{ item.priceXXL }} </td>
+
+</tr>
+<tr>
+ <td style="border-top: none;padding: 0;"><a href="{% url "cart:cart_remove" product.id 'sizeXXL'%}"><i style="color: tomato; margin-left: 10px;" class="fa fa-window-close" aria-hidden="true"></i></a> </td>
+</tr>
+{% endif %}
+
+
+
+
 {% endwith %}
 {% endfor %}
 
@@ -52,9 +209,68 @@ Your shopping cart
 </tbody>
 </table>
     <hr>
+
+<div class="alert alert-warning container" role="alert" style="font-size: 2.5vmin; margin-bottom: 25px;">
+<i class="fas fa-exclamation-triangle"></i>
+ <p> Payments are to be made once your order is placed with us.
+  Our online executive will contact you via your approved medium of contact for further dialogues on payment and delivery.</p>
+    <p>Kindly note, COD (Cash On Delivery) option is unavailable.
+    Transaction via Netbanking, GooglePay, PayTm, PhonePe, BhimUPI is accepted once order is placed with us in the Checkout page.</p>
+
+   <p>Please provide authentic contact details for a hassle-free communication with us.
+       Your order will be canceled 5 business days post placing the order if invalid contact information are provided.</p>
+</div>
+
 <p class="text-right">
-<a href="{% url "shop:product_list" %}" class="button
-light">Continue shopping</a>
-<a href="#" class="button">Checkout</a>
+<a href="{% url "shop:product_list" %}" class="submit-button" style="text-decoration: none;">Continue shopping</a>
+<a href="{% url 'orders:order_create_shop' %}" class="submit-button" style=" text-decoration: none;">Checkout</a>
 </p>
+
+    <script>
+
+
+            $(function() {
+
+
+            $( "#searchInput" ).autocomplete({
+                minLength: 2,
+                source: '{% url 'shop:product_list' %}',
+                focus: function( event, ui ) {
+                  $( "#searchInput" ).val( ui.item.value );
+                     return false;
+               },
+                select:  function (event, ui) {
+
+                searchVal = ui.item.value;
+
+                    {% for product in products %}
+                       if(searchVal == '{{ product.name }}') {
+                           window.location.href = "{% url 'shop:product_detail' product.id product.slug %}";
+                       }
+                    {% endfor %}
+                return false;
+            }
+            });
+         });
+
+    </script>
+{% endblock %}
+
+{% block footer %}
+    <br><br><br>
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-top: 50px;">
+
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
 {% endblock %}

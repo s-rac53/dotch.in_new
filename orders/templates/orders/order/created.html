@@ -1,0 +1,142 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+Dotch.in- Order Placed
+{% endblock %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+
+    body {
+       font-family: 'Dancing Script', cursive;
+       font-family: 'IBM Plex Serif', serif;
+
+     }
+
+    .other-section {
+        color: mintcream;
+        padding: 30px;
+        background-image: radial-gradient(farthest-side at 70% 75%,rgb(212,175,55), goldenrod);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+
+    </style>
+{% endblock %}
+
+{% block main %}
+
+<header style="position: relative; border: 1px solid rgba(255,255,255,0.2); width: 100%; height: 51px;">
+
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'shop:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+  </div> <!--Logo Bar ends-->
+    </header>
+
+<h1 style="color: goldenrod; margin: 15px 0px 15px 15px; text-align: center">Thank you!</h1>
+<p class="container">Your order has been successfully placed. Our executive will reach out to shortly for payment and further proceedings Your order number is
+    <strong>{{ order.id }}</strong>. {% if referral_code %}
+        Your referral code is <b> {{ referral_code }}</b>. You can share this code among your friends to win free services for every 5 referrals.
+    {% endif %}
+    Please continue shopping with us at {% if service == 'gifting' %}
+        <a style="text-decoration: none; color: black;" href={% url 'gifting:product_list' %}><b>our store</b></a> for more!
+    {% elif service == 'shop' %}
+    <a style="text-decoration: none; color: black;" href={% url 'shop:product_list' %}><b>our store</b></a> for more!
+        {% elif service == 'stitching' %}
+    <a style="text-decoration: none; color: black;" href={% url 'stitching:stitching_view' %}><b>our store</b></a> for more!
+    {% endif %}
+    <p class="container"> {% if message %}
+     {{ message }} {% endif %} <br> {% if message1 %}
+      {{ message1 }} <br>
+     {% endif %}
+     </p>
+
+</p>
+
+
+<a href="{% url 'stitching:stitching_view' %}" id="suits" style="text-decoration: none"> <div class="container other-section">
+<h3>Planning to dress up for a nearing occasion and wondering where to it stitched? </h3> <br>
+<p> Check out our online tailoring services for men & women for the best fitting bespoke attired stitched at an unbelievably lower price than retail stores.
+    Bespoke suits, saree blouse, salwars and other stitching services available. <br>
+    When an occasion doesn't wait, so shouldn't you! Get in touch with us for more.
+
+</p>
+</div> </a>
+
+
+<br><br>
+<a href="{% url 'gifting:product_list' %}" id="gifting" style="text-decoration: none"> <div class="container other-section">
+<h3>Want to gift your buddies something different but running out of ideas? A Potato is here to help you! </h3> <br>
+<p> Have a potato messenger at your friend's doorstep to perk up their day.<br>
+    From custom 3D printed gifts to gifting personal articles as per you wishes and more, we're here to make your gift strike the right chord!
+
+</p>
+</div> </a>
+
+    <br><br>
+<a href="{% url 'shop:product_list' %}" id="shop" style="text-decoration: none"> <div class="container other-section">
+<h3>It's a gathering nearing and you have plans to design a custom made apparel for you or your team? We're listening! </h3> <br>
+<p> We'll help you create custom designed casual hoodies & tees to turn your buddies into your twins. <br>
+    We accept bulk orders too. Right from school uniforms till gender reveal party clothing, we can help you get the best products!
+    Also, you can shop with us for hoodies and tees for casual wear.
+
+</p>
+</div> </a>
+
+  <br><br>
+ <h3 style="color: darkgoldenrod; font-size: 4vmin; " class="container">Refer 5 friends and win an exclusively free Dotch.in service of your choice! <br>
+     There's more, earn a free service on the 11th order you make with us for a bill above &#8377;15,000 on the previous 10 orders!
+     Happy shopping with us!</h3>
+
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+       service = "{{ service }}";
+
+    if(service == 'stitching') {
+        document.getElementById("suits").style.display = "none";
+    }
+    else if(service == 'gifting') {
+        document.getElementById("gifting").style.display = "none";
+    }
+    else if(service == 'shop') {
+        document.getElementById("shop").style.display = "none";
+
+    }
+
+
+    });
+
+
+
+    </script>
+{% endblock %}
+
+
+{% block footer %}
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-top: 70px;">
+
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
+{% endblock %}

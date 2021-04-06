@@ -1,0 +1,328 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block head %}
+    <meta name="keywords" content="  plain tees, plain hoodies, bulk order for custom desgins of hoodies and tees at low cost, bulk order stitching, bulk order tees, bulk order hoodies, custom design clothes, low cost, budget friendly, pocket friendly, {{ product.name }}, {{ product.slug }} ">
+    <meta name="description" content=" . Stitching for clothes materials(All over India).Readymade unisex hoodies and tees. Bulk order for custom desgins of hoodies and tees at low cost. Plain tees and hoodies. Custom designed tees and hoodies for bulk orders.  ">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IBM+Plex+Serif:ital,wght@1,200;1,300;1,400&display=swap" rel="stylesheet">
+
+
+<style>
+
+
+
+@media screen and (max-width: 425px) {
+   .rotating-gifs {
+       visibility: hidden;
+   }
+}
+
+     .order-info {
+
+         padding: 10px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         border: none;
+         font-size: 2.5vmin;
+         margin-top: 15px;
+
+     }
+ body {
+
+    font-family: 'Dancing Script', cursive;
+    font-family: 'IBM Plex Serif', serif;
+
+}
+
+ .form-div::after {
+     content: "";
+     display: table;
+     clear: both;
+ }
+
+.form-info {
+         max-width: 700px;
+         float: left;
+         padding: 0px;
+         margin-left: 15px;
+         width: 50%;
+     }
+
+.rotating-gifs {
+    position: relative;
+    float: right;
+    max-width: 600px;
+    top: 50vw;
+    right: 23vw;
+    border: 1px black solid;
+    display: block;
+}
+
+     .submit-button {
+    background-color: #bcbfcc;
+    border: #bcbfcc 0 solid;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 2.5vmin;
+
+}
+
+.order-info:focus {
+         outline: none;
+     }
+
+header {
+         position: relative;
+         border: 1px solid rgba(255,255,255,0.2);
+         width: 100%;
+         height: 51px;
+         margin-bottom: 15px;
+     }
+
+.modal-effects {
+
+         border: none;
+         outline: none;
+         font-size: 2.5vmin;
+
+     }
+
+</style>
+{% endblock %}
+
+
+{% block main %}
+    <header>
+
+  <!-- menubar with logo -->
+    <div class="logo-bar">
+   <a href="{% url 'shop:product_list' %}">
+     <img src="{% static 'dotch-logo.png'  %}" alt="Logo" class="logo-image">
+   </a>
+  </div> <!--Logo Bar ends-->
+    </header>
+<h4 style="margin: 50px 0px 5% 15px; font-size: 4vmin; color: goldenrod">Please fill the form and state your bespoke requirements</h4>
+
+
+<div class="form-div" style="position: relative; max-height: 2500px; height: 260vh; margin: 15px;">
+<form class="form-info" action="{% url 'orders:order_create_bulk' id slug %}"  method="post">
+{% csrf_token %}
+ <div class="form-group" style="margin-right: 0px;border-right: 0px;">
+<label for="fname" style="font-size: 2.5vmin;" >First name:</label>
+    <input style="font-size: 2.5vmin;" required id="fname" name="fname" class="form-control" type="text">
+ </div>
+
+
+<div class="form-group">
+<label for="lname" style="font-size: 2.5vmin;">Last name:</label>
+    <input style="font-size: 2.5vmin;" required id="lname" name="lname" class="form-control" type="text">
+</div>
+
+
+<div class="form-group">
+<label style="font-size: 2.5vmin;" for="email">Email:</label>
+    <input style="font-size: 2.5vmin;" required id="email" name="email" class="form-control" type="email">
+</div>
+
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="phone">Phone:</label> <br>
+    <input style="font-size: 2.5vmin; display: inline;" required id="phone" name="phone" placeholder="+91-" type="tel" pattern="[0-9]{10}" class="form-control" size="12">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="custom-order">Custom Order:</label> <br>
+    <textarea style="font-size: 2.5vmin" required name="custom-order" placeholder="Description of your custom order..." class="form-control" rows="3" cols="20"></textarea>
+    </div>
+
+    <div class="form-group">
+<label for="quantity" style="font-size: 2.5vmin;">Quantity:</label>
+    <input  style="font-size: 2.5vmin;" required id="quantity" name="quantity" min="25" class="form-control" type="number">
+</div>
+
+    <div class="form-group">
+    <label for="expected-by" style="font-size: 2.5vmin;">Required date: (minimum one week for production required excluding delivery)</label> <br>
+  <input style="font-size: 2.5vmin;" required type="date" id="expected-by" name="expected-by">
+    </div>
+
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="address">Address:</label>
+    <textarea style="font-size: 2.5vmin" required name="address" class="form-control" rows="3" cols="20"></textarea>
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="postal">Postal Code:</label>
+    <input style="font-size: 2.5vmin;" required id="postal" name="postal" class="form-control" type="number" pattern="[0-9]{6}" size="6">
+    </div>
+
+    <div class="form-group">
+<label style="font-size: 2.5vmin;" for="city">City:</label>
+    <input style="font-size: 2.5vmin;" required id="city" class="form-control" name="city" type="text">
+    </div>
+      <div> <p style="font-size: 2.5vmin;">Preferred method of contact:</p>
+    <div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input checked required name="contact-radio" type="radio" value="Email">Email</label>
+</div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Whatsapp/SMS on provided number">Whatsapp/SMS on provided number</label>
+</div>
+<div class="radio-inline">
+  <label style="font-size: 2.5vmin;"><input type="radio" name="contact-radio" value="Phone call on provided number">Phone call on provided number</label>
+</div>
+      </div><br>
+        <div class="form-group">
+          <label style="font-size: 2.5vmin;" for="referral-code">Have a referral code from a friend?</label>
+    <input style="font-size: 2.5vmin;" id="referral-code" class="form-control" name="referral-code" type="text">
+      </div>
+   <button class="order-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  View T&C and return policies before placing order
+</button>
+<br>
+<input class="submit-button" type="submit" value="Place Order">
+
+
+</form>
+ <div class="rotating-gifs">
+       <img style="position: absolute; right: -10vw; top:0; height: 25vw; width: 25vw;" alt="rotating-gifs" src="{% static '-vq.GIF' %}">
+       <img style="position: absolute; left:-5vw; bottom:0; height: 25vw; width: 25vw;" alt="rotating-gifs" src="{% static '+vq.GIF' %}">
+    </div>
+</div>
+
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content modal-effects">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: darkgoldenrod;">T&C and policies for bulk orders</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+    <!-- Modal body -->
+      <div class="modal-body">
+        <ul>
+
+            <li>We aim to manufacture and deliver undamaged products.
+                On an event of damaged product's delivery, we offer an exchange service with free of delivery cost or delivery cost's compensation.
+            </li>
+            <li>
+            A video of the ordered products will be send via your desired option for communication to ensure satisfaction from customer's end.
+            </li>
+            <li>
+                Complete payment to be made beforehand delivery of the orders. Please note, COD (Cash On Delivery) is an unavailable service.
+            </li>
+            <li>
+                Orders can be canceled before 24 hours after placing orders. Kindly place an order only if you (customer) are sure of purchasing our goods and services.
+            </li>
+            <li>
+                Products can only be exchanged and no return policy will be entertained once order is shipped.
+            </li>
+            <li>
+                In case of undesired designs printed on the products, an exchange service will be available for the same.
+            </li>
+            <li>
+                During exchange of product(s), overhead delivery charges will be borne or remunerated by our company.
+            </li>
+            <li>
+                Kindly contact our support @contact@dotch.in for further queries and questions.
+            </li>
+
+
+
+</ul>
+            <hr>
+          <div class="alert alert-danger" role="alert">
+              Additional delivery cost levied is subjected to vary as per delivery distance.
+         </div>
+</div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+
+
+
+$(document).ready(function(){
+   var date = new Date();
+   if (date.getDate() + 8 > 30) {
+
+        differenceDate = (date.getDate() + 8) - 30;
+        if(date.getMonth() < 10) {
+       dMonth = "0" + (date.getMonth() + 2).toString();
+   }
+
+   else {
+       dMonth = (date.getMonth() + 2).toString();
+   }
+    if(differenceDate < 10) {
+       differenceDate = "0" + differenceDate.toString();
+   }
+
+   else {
+       differenceDate = differenceDate.toString();
+   }
+
+        var d = date.getFullYear().toString() + "-" + dMonth + "-" + differenceDate;
+
+        document.getElementById("expected-by").value = d;
+
+   }
+    else {
+   date.setDate(date.getDate() + 8);
+   if(date.getMonth() < 10) {
+       dMonth = "0" + (date.getMonth() + 1).toString();
+   }
+
+   else {
+       dMonth = (date.getMonth() + 1).toString();
+   }
+
+   var d = date.getFullYear().toString() + "-" + dMonth + "-" + date.getDate().toString();
+
+   document.getElementById("expected-by").min = d;
+   }
+
+
+
+
+});
+
+
+</script>
+
+{% endblock %}
+
+
+{% block footer %}
+<footer id="contact" style="background-color: #e3e4d8; position: relative; bottom:0px; margin-left: 0px;">
+
+    <div style="margin:0px 30px; font-weight: bold ">
+<h3 style="padding-top:30px;">CONTACT</h3> <br>
+        <address style="font-style: italic; font-size: 2.5vmin;">
+Write to us at: <a style="text-decoration: none" href="mailto:contact@dotch.in">Dotch Support</a>.<br>
+Connect on Instagram at: <a style="text-decoration: none" href="https://www.instagram.com/dotch.in/?igshid=nt9mfyqxzle8">Dotch.in</a> <br>
+Post us at: <br>
+ Om Sai Men's wear <br>
+#297, 2nd Main, Belthur <br>
+Kadugodi (p), Bengaluru-560067
+ <br><br>
+</address>
+    </div>
+</footer>
+{% endblock %}
