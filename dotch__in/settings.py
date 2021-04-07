@@ -14,8 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__,
-os.pardir))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,8 +35,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # Application definition
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 
 INSTALLED_APPS = [
@@ -72,8 +71,7 @@ ROOT_URLCONF = 'dotch__in.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [BASE_DIR +'/templates/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,7 +96,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'shop',
         'USER': 'admin',
-        'PASSWORD': 'waterwar10169490',
+        'PASSWORD': 'admin',
+        'HOST':'localhost',
+        'PORT':''
     }
 }
 
