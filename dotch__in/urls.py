@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .settings import base
+from .settings import *
 from django.conf.urls.static import static
 from shop.views import homepage
 
@@ -31,6 +31,6 @@ urlpatterns = [
 
 
 ]
-if base.DEBUG:
-   urlpatterns += static(base.MEDIA_URL,
-                         document_root=base.MEDIA_ROOT)
+if DEBUG:
+   urlpatterns += static(MEDIA_URL,
+                         document_root=MEDIA_ROOT)
