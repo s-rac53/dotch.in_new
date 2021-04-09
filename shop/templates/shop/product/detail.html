@@ -24,8 +24,9 @@
 
  body {
 
-    font-family: 'Dancing Script', cursive;
+     font-family: 'Dancing Script', cursive;
     font-family: 'IBM Plex Serif', serif;
+    font-style: italic;
 }
 
 
@@ -93,8 +94,8 @@ select:focus {
     padding: 10px;
     margin-bottom: 3vw;
     margin-left: 5vw;
-    max-height: 260px;
-    max-width: 200px;
+    max-height: 370px;
+    max-width: 170px;
 
 }
 
@@ -285,7 +286,7 @@ select:focus {
               <div class="container" >
                   <a href="{{ cat_product.get_absolute_url }}">
                 <img class="img-fluid "
-                  src="{% if cat_product.image %}{{ cat_product.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ cat_product.name }}" style="height: 15vh; width: 15vw">
+                  src="{% if cat_product.image %}{{ cat_product.image.url }}{%else %}{% static "no-image-available.jpg" %}{% endif %}" alt="{{ cat_product.name }}" style="height: 70px; width: 70px">
                   </a>
               </div>
                  <br>

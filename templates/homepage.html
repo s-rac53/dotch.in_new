@@ -14,7 +14,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://www.1001fonts.com/d-din-font.html" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/jpg" href="{% static 'dotch-logo.png' %}">
+    <link rel="stylesheet" href={% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}>
+    <script src="https://kit.fontawesome.com/3fb05debab.js" crossorigin="anonymous"></script>
 
     <title>Custom-made men's formal and Casual wear- Ready-made Tee's and Hoodies-
         Creative Gifts using potato as messenger, 3D printed gifting and more..</title>
@@ -46,7 +49,7 @@
 
         .button-design {
 
-            width: 43%;
+
             font-size:2.2vmin;
             text-shadow: 2px 2px 5px #dcd1a5;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -55,10 +58,26 @@
             font-style: oblique;
             background-color: #f5f5f5;
             padding: 3vmax;
-            position: relative;
-            height: 15vmax;
+
+            height: auto;
             min-height: 150px;
 
+
+        }
+
+        .button {
+            width: auto;
+            min-width: 115px;
+            padding: 5px;
+            text-shadow: 2px 2px 5px #dcd1a5;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            color:black;
+            font-weight: bolder;
+            font-style: oblique;
+            background-color: #f5f5f5;
+            float: left;
+            margin-top: 10px;
+            font-size:2.2vmin;
 
         }
         .parallax1 {
@@ -229,51 +248,65 @@
     <main id="content-main" style="position: absolute; top: 100vh; left: 0; width: 100%">
 
 
-
-
-
-
           <div class="service-section" >
-         <div class="parallax1"  ><h4 style=" width: 50%;margin-left:25%;padding: 5px;margin-top:10%;font-size: 3.6vmin; background-color: black; color: white"><b><i>Custom Stitched Suits For Men</i></b> </h4> </div>
-
-           <a href="{% url 'stitching:stitching_view' %}" style=" text-decoration: none;">
-        <div class="container button-design" style="float:right; margin-top: 5vw;">
+         <div class="parallax1"  ><h4 style=" width: 50%;margin-left:25%;padding: 5px;margin-top:10%;font-size: 3.6vmin; background-color: black; color: white"><b><i>Custom Stitched Suits For Men & Women</i></b> </h4> </div>
+              <div style="width: 43%; float: right;">
+              <div class="container button-design" style="float:right;">
             <p>"Fine clothes maketh the man." <br>
                 Our online Tailor-Stitching service helps you dress up perfectly for that perfect occasion. <br>
                 Have bespoke suits & women attire like saree blouse, salwars and more stitched with us at pocket friendly price. Click here for more info.
             </p>
 
         </div>
+
+           <a href="{% url 'stitching:stitching_view' %}" style=" text-decoration: none;">
+                <div class="container button">
+                    Explore more &nbsp; <i style="margin-top: 5px;" class="fas fa-long-arrow-alt-right"></i>
+                </div>
           </a>
+              </div>
               </div>
            <br><br>
         <div class="service-section">
-            <a href="{% url 'shop:product_list' %}" style="margin-left: 5px; text-decoration: none;">
-        <div class="container button-design" style="float:left; margin-top: 5vw;" >
-            <p>"Casuals can never go out of style." <br>
-                From plain hoodies and tee's to delivering custom designed clothes for you squad, we've got you.  <br>
-                We help you design ideas that can be worn and adored for any occasion. Explore our store for more.
+
+        <div class="parallax2" ><h4 style=" width: 50%;margin-left:25%;padding: 5px;margin-top:10%;font-size: 3.6vmin; background-color: black; color: white"><b><i>Casual Unisex Hoodies & Tees</i></b> </h4> </div>
+
+            <div style="width: 43%; float: left;">
+              <div class="container button-design">
+            <p>Casuals can never go out of style." <br>
+    From plain hoodies and tee's to delivering custom designed clothes for you squad, we've got you.  <br>
+    We help you design ideas that can be worn and adored for any occasion. Explore our store for more.
             </p>
 
         </div>
-          </a> <br>
-        <div class="parallax2" ><h4 style=" width: 50%;margin-left:25%;padding: 5px;margin-top:10%;font-size: 3.6vmin; background-color: black; color: white"><b><i>Casual Unisex Hoodies & Tees</i></b> </h4> </div>
-         <br>
+
+           <a href="{% url 'shop:product_list' %}" style=" text-decoration: none;">
+                <div class="container button" style="float: right">
+                    Explore more &nbsp; <i style="margin-top: 5px;" class="fas fa-long-arrow-alt-right"></i>
+                </div>
+          </a>
+              </div>
 
          </div> <br><br>
 
         <div class="service-section" >
          <div class="parallax3"  ><h4 style=" width: 50%;margin-left:25%;padding: 5px;margin-top:10%;font-size: 3.6vmin; background-color: black; color: white"><b><i>Creative gifting with Potatoes and more</i></b> </h4> </div>
 
-           <a href="{% url 'gifting:product_list' %}" style=" text-decoration: none;">
-        <div class="container button-design" style=" float:right; margin-top: 5vw;">
-            <p>"Out of gifting ideas?" <br>
-                Give our Potato minions a chance to impress you with humorous gifts! <br>
-                Choose between 3D printed gifts and gifting personal articles along with our Potato messenger and many more!
+           <div style="width: 43%; float: right;">
+              <div class="container button-design" style="float:right;">
+            <p>Out of gifting ideas?" <br>
+    Give our Potato minions a chance to impress you with humorous gifts! <br>
+    Choose between 3D printed gifts and gifting personal articles along with our Potato messenger and many more!
             </p>
 
         </div>
+
+           <a href="{% url 'gifting:product_list' %}" style=" text-decoration: none;">
+                <div class="container button">
+                    Explore more &nbsp; <i style="margin-top: 5px;" class="fas fa-long-arrow-alt-right"></i>
+                </div>
           </a>
+              </div>
               </div>
            <br><br>
 

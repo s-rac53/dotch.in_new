@@ -29,6 +29,7 @@
        body {
            font-family: 'Dancing Script', cursive;
            font-family: 'IBM Plex Serif', serif;
+           font-style: italic;
        }
 
 
@@ -353,7 +354,7 @@ Kadugodi      (p), Bengaluru-560067
 
     <div class="form-group">
    <label  style="font-size: 2.5vmin;" for="service">Choose a service:</label>
-  <select style="font-size: 2.5vmin" onclick="selectService()" data-toggle="tooltip" data-placement="top" title="Please read service information above in detail before selecting."
+  <select style="font-size: 2.5vmin" onchange="selectService()" data-toggle="tooltip" data-placement="top" title="Please read service information above in detail before selecting."
           id="service" name="service">
     <option value="Online-service">Online stitching service</option>
     <option value="mobile-tailor service">Mobile Tailor service</option>

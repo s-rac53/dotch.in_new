@@ -13,12 +13,6 @@
 
 
 
-@media screen and (max-width: 425px) {
-   .rotating-gifs {
-       visibility: hidden;
-   }
-}
-
      .order-info {
 
          padding: 10px;
@@ -55,7 +49,6 @@
     max-width: 600px;
     top: 50vw;
     right: 23vw;
-    border: 1px black solid;
     display: block;
 }
 
@@ -105,7 +98,7 @@ header {
 <h4 style="margin: 50px 0px 5% 15px; font-size: 4vmin; color: goldenrod">Please fill the form and state your bespoke requirements</h4>
 
 
-<div class="form-div" style="position: relative; max-height: 2500px; height: 260vh; margin: 15px;">
+<div class="form-div" style="position: relative; max-height: 2500px; height: auto; margin: 15px;">
 <form class="form-info" action="{% url 'orders:order_create_bulk' id slug %}"  method="post">
 {% csrf_token %}
  <div class="form-group" style="margin-right: 0px;border-right: 0px;">
