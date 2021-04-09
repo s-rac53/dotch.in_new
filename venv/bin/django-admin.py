@@ -1,4 +1,4 @@
-#!/home/s-rac/PycharmProjects/dotch__in/venv/bin/python
+#!/home/ubuntu/dotch.in/venv/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
