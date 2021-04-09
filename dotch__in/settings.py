@@ -14,8 +14,12 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+<<<<<<< HEAD
+BASE_DIR = BASE_DIR = Path(__file__).resolve().parent.parent
+=======
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+>>>>>>> 21f3301c7b03e9d336a39d171e5bf6ec8d9f0668
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/

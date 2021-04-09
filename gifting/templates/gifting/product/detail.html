@@ -23,6 +23,8 @@ Bulk orders accepted for many varieties and designs of gifts.
 
     font-family: 'Dancing Script', cursive;
     font-family: 'IBM Plex Serif', serif;
+     font-style: italic;
+
 }
 
 
@@ -42,7 +44,7 @@ select:focus {
 
  #myCarousel {
              width:70%;
-             height: 60vh;
+             height: auto;
              margin-left: auto;
              margin-right: auto;
              min-height: 350px;
@@ -72,7 +74,7 @@ select:focus {
     font-style: italic;
     color: cadetblue;
     text-transform: capitalize;
-    text-align: center;
+    margin-left: 5%;
 }
 
 .submit-button {
@@ -146,6 +148,8 @@ select:focus {
     padding: 10px;
     margin-top: 15px;
     font-size: 2.5vmin;
+      width: auto;
+
 
 }
 
@@ -209,7 +213,7 @@ select:focus {
            <p style="text-align: center"><i>{{ variant.description }}</i></p>
 
 
-          <button style="margin-left: 29vw" class="submit-button" onclick="variantVal({{ variant.id }})"> Select Me </button>
+          <button style="margin-left: 29.5vw" class="submit-button" onclick="variantVal({{ variant.id }})"> Select Me </button>
 
       </div>
 
@@ -235,7 +239,7 @@ select:focus {
 
 
           <hr style="background-color: #f1f1f1; width: 60%;  {% if variants %}
-           margin-top:10vw; {% else %}margin-top: 3vw;
+           margin-top:15px;  {% else %}margin-top: 3vw;
           {% endif %} ">
     <div class="container product-description"  ><p>{{ product.description|linebreaks }} </p></div>
               <hr style="background-color: #f1f1f1; width: 60%">

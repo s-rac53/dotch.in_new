@@ -47,7 +47,6 @@ Dotch.in-Checkout
     max-width: 600px;
     top: 45vw;
     right: 30vw;
-    border: 1px black solid;
     display: block;
 }
 
@@ -152,7 +151,7 @@ Dotch.in-Checkout
        <img style="position: absolute; left:-5vw; bottom:0; height: 25vw; width: 25vw;" alt="rotating-gifs" src="{% static '+vq.GIF' %}">
     </div>
 
-<div class="form-div" style="position: relative; max-height: 2100px; height: 220vh; width: 50%; margin-left: 15px;">
+<div class="form-div" style="position: relative; max-height: 2100px; height: auto; width: 50%; margin-left: 15px;">
 <form class="form-info" action="{% url 'orders:order_create_shop' %}"  method="post">
 {% csrf_token %}
  <div class="form-group" style="margin-right: 0px;border-right: 0px;">
